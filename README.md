@@ -13,7 +13,8 @@ I have two main requirements for my MagicMirror<sup>2</sup>.
      - Automatic updates that change or add features can cause problems. My first thought is that since this really only requires vendor-supplied Node.js, additional features and bug fixes shouldn't cause problems. 
 
 ## Todo
-I have to document the automated update configuration for Ubuntu.
+- I have to document the automated update configuration for Ubuntu.
+- Test a build where the *magic* user was not created as a member of the *sudo* group.
 
 ## Hardware
 
@@ -57,14 +58,14 @@ As a normal user preface the commands with `sudo`.  If you're logged in as *root
 - `apt install git nodejs npm`
 - Create a user to run MagicMirror<sup>2</sup>.\
   `useradd -m -G sudo magic`
-  - This gives *magic* the ability to use sudo. I'm not sure this account really needs that capability, though. 
+  - This gives *magic* the ability to use sudo. I'm fairly certain this account **does not** need this. It's on my list to run through the build again, but creating *magic* without this capability.
 - `passwd magic` (Avoid the urge to use "mirror" as the password.)
   - Optional: Give *magic* a descriptive Real Name, so someone else will understand why this user was created.\
   `chfn magic` 
 - Enable automatic login for that user. You have two options to do this.
-  - ...through the Settings app. This must be done as the *magic* user. We need to configure several other things as this user later, so you can delay this task.\
+  - ...through the Settings app. This is probably the easiest method, but must be done as the *magic* user. We need to configure several other things as this user later, so you can delay this task.\
   `Settings > Users > Authentication & Login`
-  - ...if using Gnome3: from the terminal, modify `/etc/gdm3/custom.conf`. (This option can be done either as root or as a normal user having sudo(8) capabilities.)
+  - ...if using Gnome3: from the terminal, modify `/etc/gdm3/custom.conf`. (This option can be done either as root or as a normal user having sudo(8) capabilities.)  The `AutomaticLoginEnable` and `AutomaticLogin` lines are what we need to change.  See below for the context.
 
 ```
 # Enabling automatic login
