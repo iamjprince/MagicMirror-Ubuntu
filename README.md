@@ -15,6 +15,8 @@ I have two main requirements for my MagicMirror<sup>2</sup>.
 ## Todo
 - I have to document the automated update configuration for Ubuntu.
 - Test a build where the *magic* user was not created as a member of the *sudo* group.
+  - Going through the history of the *magic* sudo commands, I don't see anything that was kept or couldn't have been done by another user.
+  - This is a nice separation of privilege, *magic* can only affect changes specifically to MagicMirror<sup>2</sup> and not the system in general.
 
 ## Hardware
 
