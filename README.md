@@ -64,7 +64,7 @@ As a normal user preface the commands with `sudo`.  If you're logged in as *root
 - Enable automatic login for that user. You have two options to do this.
   - ...through the Settings app. This must be done as the *magic* user. We need to configure several other things as this user later, so you can delay this task.\
   `Settings > Users > Authentication & Login`
-  - ...if using Gnome3: from the terminal, modify `/etc/gdm3/custom.conf`. (This option can be done either as root or as a normal user having the sudo(8) capability.)
+  - ...if using Gnome3: from the terminal, modify `/etc/gdm3/custom.conf`. (This option can be done either as root or as a normal user having sudo(8) capabilities.)
 
 ```
 # Enabling automatic login

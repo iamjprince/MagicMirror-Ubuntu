@@ -1,0 +1,17 @@
+#!/bin/bash
+##
+## Start the Magic Mirror
+## Usage:  MM.start [0]
+## Start on local display or append "0" to start MagicMirror display via SSH.
+##
+
+export MagicHome=/home/magic/Applications/MagicMirror
+
+if [[ $1 = 0 ]] ; then
+  DISPLAY=:0
+else
+  DISPLAY="${DISPLAY:=:0}"
+fi
+
+cd $MagicHome || exit 1
+( cd $MagicHome && /usr/bin/npm run start & 2>&1 ) | /usr/bin/systemd-cat -t MagicMirror -p info
