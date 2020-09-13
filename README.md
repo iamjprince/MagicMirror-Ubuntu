@@ -61,6 +61,7 @@ As a normal user preface the commands with `sudo`.  If you're logged in as *root
 - Create a user to run MagicMirror<sup>2</sup>.\
   `useradd -m -G sudo magic`
   - This gives *magic* the ability to use sudo. I'm fairly certain this account **does not** need this. It's on my list to run through the build again, but creating *magic* without this capability.
+  - Currently, *magic* does not have sudo capabilities on my MagicMirror<sup>2</sup>.  I have another account and know the *root* password should I need to perform other tasks, such as system updates.
 - `passwd magic` (Avoid the urge to use "mirror" as the password.)
   - Optional: Give *magic* a descriptive Real Name, so someone else will understand why this user was created.\
   `chfn magic` 
