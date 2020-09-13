@@ -1,0 +1,12 @@
+[Desktop Entry]
+Comment=Start the MagicMirror.
+Name[en_US]=Magic Mirror Start
+Name=Magic Mirror Start
+Type=Application
+Hidden=false
+NoDisplay=false
+Exec=/home/magic/bin/MM.start
+Icon=aeskulap
+Terminal=false
+Categories=Viewer;Graphics;
+StartupNotify=true
