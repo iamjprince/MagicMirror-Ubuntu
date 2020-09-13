@@ -1,14 +1,14 @@
 # MagicMirror-Ubuntu
 
-There is a lot of documentation out there describing how to run MagicMirror<sup>2</sup> on a Raspberry PI. I had a few discarded Intel-based systems, with integrated touchscreen displays. These instructions will build the software using Ubuntu 20.04 LTS. I configured a normal user to automatically log in at system start and the MagicMirror<sup>2</sup> software to automatically start once that user logged in. This being a computer, there are multiple ways to do this. This is the path I chose.
+There is a lot of documentation out there describing how to run MagicMirror<sup>2</sup> on a Raspberry Pi. I had a few discarded Intel-based systems, with integrated touchscreen displays. These directions build the software using Ubuntu 20.04 LTS. It was surprisingly easy.  I want the MagicMirror<sup>2</sup> to automatically start.  This being a general purpose computer, there are multiple paths to that similar end points.  Here is the path I chose.  I configured a normal user to automatically log in at system start and the MagicMirror<sup>2</sup> software to automatically start once that user logged in. 
 
 I have two main requirements for my MagicMirror<sup>2</sup>.
  
-1. Display background pictures, making it more of a MagicPictureFrame.
-   - The MagicMirror<sup>2</sup> runs as a normal user, with no need for elevated privileges. 
-2. Retain the ability to run other programs, such as displaying images from CC cameras.
-   - My hardware is more powerful than a Raspberry Pi, so they should do more.
-   - Part of this is to retain as plain an operating system as possible. Use only the available repositories from the vendor. Building packages from source, for anything other than the MagicMirror<sup>2</sup> and it's modules, will require manual maintenance for bugs and security fixes.
+1. Display background pictures, making it more of a MagicPictureFrame than a mirror.
+   - The MagicMirror<sup>2</sup> runs as a normal user, with little need for elevated privileges. 
+2. Retain the ability to run other programs, such as displaying video from security cameras.
+   - My hardware is more powerful than a Raspberry Pi, so it should do more.
+   - Part of this is to retain as *simple* an operating system as possible. Use only the available repositories from the vendor. Building packages from source, for anything other than the MagicMirror<sup>2</sup> and it's modules, will require manual maintenance for bugs and security fixes.
    - This should make it easy to configure automatic updates targetting security bugs.
      - Automatic updates that change or add features can cause problems. My first thought is that since this really only requires vendor-supplied Node.js, additional features and bug fixes shouldn't cause problems. 
 
@@ -17,10 +17,11 @@ I have two main requirements for my MagicMirror<sup>2</sup>.
 - Test a build where the *magic* user was not created as a member of the *sudo* group.
   - Going through the history of the *magic* sudo commands, I don't see anything that was kept or couldn't have been done by another user.
   - This is a nice separation of privilege, *magic* can only affect changes specifically to MagicMirror<sup>2</sup> and not the system in general.
+- Walk through installing MMM-BackgroundSlideshow.  That can be used as a template for installing other modules.
 
 ## Hardware
 
-I have two systems, both with a Gigabyte N3060TN-EM motherboard, 32 GB SSD, Intel Celeron N3060 CPU. Both have touchscreen displays. Both are in an all-in-one type configuration; the motherboard is mounted directly behind the display backlight. One system has 2 GB RAM. The other has been upgraded to 4 GB RAM and Wifi. Both displays are reflective enough that they could be used as a mirror.
+I have two systems, both with a Gigabyte N3060TN-EM motherboard, 32 GB SSD, and Intel Celeron N3060 CPU. Both have a touchscreen display. Both are in an all-in-one type configuration; the motherboard is mounted directly behind the display backlight. One system has 2 GB RAM. The other has been upgraded to 4 GB RAM and Wifi. Both displays are reflective enough that they could be used as a mirror.
 
 ## Random Notes and Observations
 
@@ -28,8 +29,8 @@ I have two systems, both with a Gigabyte N3060TN-EM motherboard, 32 GB SSD, Inte
 - I avoided using Snaps to install the MagicMirror<sup>2</sup> software. I even went so far as to remove the snapd package from my 18.04 build.
 - The Ubuntu 18.04.5 build frequently hangs after a few hours, even when running on the system with 4 GB RAM. I did not troubleshoot the problem. The build on Ubuntu 20.04.1 doesn't exhibit this problem.  This could be due to my hardware.  It could be due to earlier package versions.
 - I also tried installing on Elementary OS. It's based on Ubuntu 18.04 LTS. The MagicMirror<sup>2</sup> wouldn't run, probably because this distro only comes with version 8.10 of Node.js.
-- The ability to delay the automatic login of the *magic* user could be useful, in that during that delay I could log in as another user to perform other tasks.
-- It would be nice to use some feature of the touchscreen to drop out of the MagicMirror<sup>2</sup>. Then I could drop out of the MagicMirror<sup>2</sup> to perform other tasks. 
+- The ability to delay the automatic login of the *magic* user could be useful. During that delay I could log in as another user to perform other tasks.
+- It would be nice to use some feature of the touchscreen to drop out of the MagicMirror<sup>2</sup>. Then I could drop out of the MagicMirror<sup>2</sup> to perform other tasks.  As I have things now, I need a physical keyboard to tap the ALT key.
 
 ## The Build
 
@@ -96,11 +97,11 @@ An interesting thought: clone MagicMirror<sup>2</sup> to different directories, 
 - `git clone https://github.com/MichMich/MagicMirror`
 - `cd MagicMirror && npm install`
   - This will produce error messages. Fix them if you can. My experience (Experience = Two Ubuntu builds.) is that MagicMirror<sup>2</sup> runs well despite the errors. 
-- Modify the config.js file to your taste. The following command copies the developer-distributed example file to a working copy. (In case things are horribly botched, I can go back to the beginning.)
+- Modify the `config.js` file to your taste. The following command copies the developer-distributed example file to a working copy. (In case things are horribly botched, I can go back to the beginning.)
   - `cd config && cp -p config.js.sample config.js`
 - You can run to see what happens. cd up one directory first.\
   `cd .. && npm run start`
-  - Another page in the MagicMirror'^2^' documentation mentions using `npm start` I do not know the subtleties between the two commands. 
+  - Another page in the MagicMirror<sup>2</sup> documentation mentions using `npm start` I do not know the subtleties between the two commands. 
 
 You should now have a full screen, plain vanilla MagicMirror<sup>2</sup> displaying the date and time, news feeds, and compliments. These default modules are in `MagicMirror/modules/default`. Any new modules should be placed in the `MagicMirror/modules` directory, i.e., you should `cd` to this directory before you run `git clone `*new-MMM-module*.
 
@@ -116,7 +117,7 @@ News feeds can be added in: `MagicMirror/config/config.js`
 The compliments are configured in: `MagicMirror/modules/default/compliments/compliments.js`
 - You can add your own compliments or even try something different. (Perhaps some science fiction movie quotes, because you never know why that watermelon is in the lab.) 
 
-To deactivate a module, comment it from `MagicMirror/config/config.js` or remove the `{}` stanza completely. (Be aware of your commas!) I deactivated the compliments module by commenting out the stanza. I did nothing to the weather module, as I don't yet have an account on the weather feed site. (That's for another day.)
+To deactivate a module, comment it from `MagicMirror/config/config.js` or remove the `{}` stanza completely. (Be aware of your commas!) I deactivated the compliments module by commenting out the stanza. I did nothing to the weather module, as I don't yet have an account on the weather feed site. (That's for another day.)  The MagicMirror<sup>2</sup> silently ignores this module.
 
 ## More Operating System Configuration
 Modify the power settings to avoid screen savers, screen blanking.  Check if there's a setting for idle shutdown.
@@ -138,7 +139,7 @@ You now have a system that will boot and automatically log in the user *magic*. 
   - This returns us to the $HOME directory. 
 - `mkdir bin`
 - `cd bin`
-- Use your favorite editor to create MM.start. It should contain the following. Modify the `MagicHome` variable if you cloned MagicMirror<sup>2</sup> into different directory.
+- Use your favorite editor to create `MM.start`. It should contain the following. Modify the `MagicHome` variable if you cloned MagicMirror<sup>2</sup> into different directory.
 ```
 #!/bin/bash
 ##
@@ -191,3 +192,5 @@ Categories=Viewer;Graphics;
 StartupNotify=true
 ```
 At this point, you can reboot and MagicMirror<sup>2</sup> will automatically start. 
+
+There are other things that can be done.  Replace the Ubuntu splash screen with something more MagicMirror<sup>2</sup>-ish.  The same thing goes for the default background of the *magic* user.  As configured, it's the default focal fossa background.  During startup, the desktop is briefly seen.
