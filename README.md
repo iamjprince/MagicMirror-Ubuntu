@@ -8,29 +8,29 @@ I have two main requirements for my MagicMirror<sup>2</sup>.
    - The MagicMirror<sup>2</sup> runs as a normal user, with little need for elevated privileges. 
 2. Retain the ability to run other programs, such as displaying video from security cameras.
    - My hardware is more powerful than a Raspberry Pi, so it should do more.
-   - Part of this is to retain as *simple* an operating system as possible. Use only the available repositories from the vendor. Building packages from source, for anything other than the MagicMirror<sup>2</sup> and it's modules, will require manual maintenance for bugs and security fixes.
+   - Part of this is to retain as *plain* an operating system as possible. Use only the available repositories from the vendor. Building packages from source, for anything other than the MagicMirror<sup>2</sup> and it's modules, will require manual maintenance for bugs and security fixes.
    - This should make it easy to configure automatic updates targetting security bugs.
      - Automatic updates that change or add features can cause problems. My first thought is that since this really only requires vendor-supplied Node.js, additional features and bug fixes shouldn't cause problems. 
 
 ## Todo
 - I have to document the automated update configuration for Ubuntu.
-- Test a build where the *magic* user was not created as a member of the *sudo* group.
-  - Going through the history of the *magic* sudo commands, I don't see anything that was kept or couldn't have been done by another user.
-  - This is a nice separation of privilege, *magic* can only affect changes specifically to MagicMirror<sup>2</sup> and not the system in general.
+- Test a build where the *magic* user was not created as a member of the *sudo* group.  Right now, the system is running well with the *magic* user removed from the *sudo* group.
+  - Going through the history of the *magic* sudo commands, I don't see anything that required *root* privileges.
 - Walk through installing MMM-BackgroundSlideshow.  That can be used as a template for installing other modules.
 
 ## Hardware
 
-I have two systems, both with a Gigabyte N3060TN-EM motherboard, 32 GB SSD, and Intel Celeron N3060 CPU. Both have a touchscreen display. Both are in an all-in-one type configuration; the motherboard is mounted directly behind the display backlight. One system has 2 GB RAM. The other has been upgraded to 4 GB RAM and Wifi. Both displays are reflective enough that they could be used as a mirror.
+I have two systems, both have a Gigabyte N3060TN-EM motherboard, 32 GB SSD, and Intel Celeron N3060 CPU. Both have a touchscreen display. Both are in an all-in-one type configuration; the motherboard is mounted directly behind the display backlight. One system has 2 GB RAM. The other has been upgraded to 4 GB RAM and Wifi. Both displays are reflective enough that they could be used as a mirror.
 
 ## Random Notes and Observations
 
 - I chose to try the two most recent LTS (Long Term Support) Ubuntu editions, 18.04 and 20.04.
-- I avoided using Snaps to install the MagicMirror<sup>2</sup> software. I even went so far as to remove the snapd package from my 18.04 build.
+- I avoided using Snaps to install the MagicMirror<sup>2</sup> software. I even went so far as to remove the snapd package from my 18.04 build.  In this case, Snaps is just **another** update mechanism that needs to be handled.
 - The Ubuntu 18.04.5 build frequently hangs after a few hours, even when running on the system with 4 GB RAM. I did not troubleshoot the problem. The build on Ubuntu 20.04.1 doesn't exhibit this problem.  This could be due to my hardware.  It could be due to earlier package versions.
 - I also tried installing on Elementary OS. It's based on Ubuntu 18.04 LTS. The MagicMirror<sup>2</sup> wouldn't run, probably because this distro only comes with version 8.10 of Node.js.
-- The ability to delay the automatic login of the *magic* user could be useful. During that delay I could log in as another user to perform other tasks.
+- Interesting configuration option, delay automatic login.  The ability to delay the automatic login of the user running MagicMirror<sup>2</sup> could be useful. During that delay window I could log in as another user to perform other tasks.
 - It would be nice to use some feature of the touchscreen to drop out of the MagicMirror<sup>2</sup>. Then I could drop out of the MagicMirror<sup>2</sup> to perform other tasks.  As I have things now, I need a physical keyboard to tap the ALT key.
+- Something to think about: clone MagicMirror<sup>2</sup> to different directories, each with a different configuration.
 
 ## The Build
 
@@ -42,17 +42,17 @@ Installing *Minimal Ubuntu 20.04.1 Desktop*. The *Desktop* edition installs the 
 
 I am not a fan of the Gnome desktop, so I plan to try other distros that use something else. But, my opinion of Gnome3 may change with the version installed on Ubuntu 20.04. The virtual keyboard pops up when I touch the screen, making it easier to log in and perform tasks on the desktop. However, the virtual keyboard does not appear when MagicMirror<sup>2</sup> is running, so tapping the ALT key still requires a physical keyboard.
 
-As a normal user preface the commands with `sudo`.  If you're logged in as *root*, be very careful.
+As a normal user preface the commands with `sudo`.  If you're logged in as *root*, **be very careful**.
 
 - `apt install openssh-server vim screen`
   - I access the MagicMirror<sup>2</sup> via SSH often, including copying pictures to it.
-  - You'll need an editor. I prefer vi over nano. Since I'm an old Unix guy, my muscle memory even perfers vi over vim. If you perfer nano, ignore all my vi(m) reconfigurations.
+  - You'll need an editor. I prefer `vi` over `nano`. Since I'm an old Unix guy, my muscle memory even perfers `vi` over `vim`. If you perfer `nano`, ignore all my vi(m) reconfigurations.
     - Modify BASH environment: EDITOR and VISUAL.
     - Carefully modify `/etc/sudoers` to add this line.\
     `Defaults editor=/usr/bin/vi`\
      Then verify it works. 
 - I do not configure NOPASSWD for my sudo users.
-  - I'll likely circle back and only allow the *magic* user to `shutdown` or `reboot` the system, if that much. 
+  - What little 
 - By this point, I don't need `nano` anymore.
   - `apt --purge remove nano `
 - `apt update`\
@@ -61,14 +61,16 @@ As a normal user preface the commands with `sudo`.  If you're logged in as *root
 - `apt install git nodejs npm`
 - Create a user to run MagicMirror<sup>2</sup>.\
   `useradd -m -G sudo magic`
-  - This gives *magic* the ability to use sudo. I'm fairly certain this account **does not** need this. It's on my list to run through the build again, but creating *magic* without this capability.
-  - Currently, *magic* does not have sudo capabilities on my MagicMirror<sup>2</sup>.  I have another account and know the *root* password should I need to perform other tasks, such as system updates.
+  - This gives *magic* the ability to use sudo. I'm fairly certain this account **does not** need this. It's on my list to run through the build again, but creating *magic* without this capability.  
+  - Currently, the MagicMirror<sup>2</sup> is running well and the *magic* user does not have sudo capabilities.  I have another account to do operating system maintenance and know the *root* password should I need that.  There's no need for one more administrator account.
 - `passwd magic` (Avoid the urge to use "mirror" as the password.)
   - Optional: Give *magic* a descriptive Real Name, so someone else will understand why this user was created.\
   `chfn magic` 
 - Enable automatic login for that user. You have two options to do this.
-  - ...through the Settings app. This is probably the easiest method, but must be done as the *magic* user. We need to configure several other things as this user later, so you can delay this task.\
+  - ...<a name="autologin">through the **Settings app**</a>. This is probably the easiest method, but must be done as the *magic* user.\
   `Settings > Users > Authentication & Login`
+    - We need to configure several other things as this user later, so you can delay this task.
+  
   - ...if using Gnome3: from the terminal, modify `/etc/gdm3/custom.conf`. (This option can be done either as root or as a normal user having sudo(8) capabilities.)  The `AutomaticLoginEnable` and `AutomaticLogin` lines are what we need to change.  See below for the context.
 
 ```
@@ -84,14 +86,12 @@ As a normal user preface the commands with `sudo`.  If you're logged in as *root
 
 ### MagicMirror<sup>2</sup>
 
-Build MagicMirror<sup>2</sup> from source, [manual directions](https://docs.magicmirror.builders/getting-started/installation.html#manual-installation). The node-js packages residing in the Ubuntu repositories for both 18.04 and 20.04 are sufficient. If the *magic* user has not been configured to automatically log in when the system boots, here is another opportunity to configure that.
-
-An interesting thought: clone MagicMirror<sup>2</sup> to different directories, each with a different configuration.
+Build MagicMirror<sup>2</sup> from source according to the [maintainer's directions](https://docs.magicmirror.builders/getting-started/installation.html#manual-installation). The node-js packages residing in the Ubuntu repositories for both 18.04 and 20.04 are sufficient, so no need to download and compile that. If the *magic* user has not been configured to automatically log in when the system boots, here is the opportunity to complete that.
 
 **These steps are done as the *magic* user.** A terminal session is necessary for nearly all the commands I use.
 
 - Login as the *magic* user.
-  - If you haven't enabled this user for automatic login, now is a good time to use the Settings app and get this done. Refer to details earlier in these instructions. 
+  - If you haven't enabled this user for automatic login, now is a good time to use the Settings app and get this done. Refer to [using the **Settings app** step](#autologin) in the **Operating Systems...** section above. 
 - Create and change to the directory you wish the MagicMirror<sup>2</sup> softare to reside.
   - For example, `mkdir Applications && cd Applications` 
 - `git clone https://github.com/MichMich/MagicMirror`
