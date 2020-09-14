@@ -84,12 +84,12 @@ As a normal user preface the commands with `sudo`.  If you're logged in as *root
 
 ### MagicMirror<sup>2</sup>
 
-Build MagicMirror<sup>2</sup> from source according to the {maintainer's directions](https://docs.magicmirror.builders/getting-started/installation.html#manual-installation). The node-js packages residing in the Ubuntu repositories for both 18.04 and 20.04 are sufficient, so no need to download and compile that. If the *magic* user has not been configured to automatically log in when the system boots, here is the opportunity to complete that.
+Build MagicMirror<sup>2</sup> from source according to the [maintainer's directions](https://docs.magicmirror.builders/getting-started/installation.html#manual-installation). The node-js packages residing in the Ubuntu repositories for both 18.04 and 20.04 are sufficient, so no need to download and compile that. If the *magic* user has not been configured to automatically log in when the system boots, here is the opportunity to complete that.
 
 **These steps are done as the *magic* user.** A terminal session is necessary for nearly all the commands I use.
 
 - Login as the *magic* user.
-  - If you haven't enabled this user for automatic login, now is a good time to use the Settings app and get this done. Refer to [details in the **Operating Systems** section](#autologin). 
+  - If you haven't enabled this user for automatic login, now is a good time to use the Settings app and get this done. Refer to [details in the **Enable Automatic Login** using the *Settings app* step](#autologin) of the **Operating Systems...** section above. 
 - Create and change to the directory you wish the MagicMirror<sup>2</sup> softare to reside.
   - For example, `mkdir Applications && cd Applications` 
 - `git clone https://github.com/MichMich/MagicMirror`
