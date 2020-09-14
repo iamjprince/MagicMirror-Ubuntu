@@ -91,7 +91,7 @@ Build MagicMirror<sup>2</sup> from source according to the [maintainer's directi
 **These steps are done as the *magic* user.** A terminal session is necessary for nearly all the commands I use.
 
 - Login as the *magic* user.
-  - If you haven't enabled this user for automatic login, now is a good time to use the Settings app and get this done. Refer to [details in the **Enable Automatic Login** using the *Settings app* step](#autologin) of the **Operating Systems...** section above. 
+  - If you haven't enabled this user for automatic login, now is a good time to use the Settings app and get this done. Refer to [using the **Settings app** step](#autologin) of the **Operating Systems...** section above. 
 - Create and change to the directory you wish the MagicMirror<sup>2</sup> softare to reside.
   - For example, `mkdir Applications && cd Applications` 
 - `git clone https://github.com/MichMich/MagicMirror`
