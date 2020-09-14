@@ -67,9 +67,10 @@ As a normal user preface the commands with `sudo`.  If you're logged in as *root
   - Optional: Give *magic* a descriptive Real Name, so someone else will understand why this user was created.\
   `chfn magic` 
 - Enable automatic login for that user. You have two options to do this.
-  - ...<a name="autologin">through the **Settings app**</a>. This is probably the easiest method, but must be done as the *magic* user. 
-    - We need to configure several other things as this user later, so you can delay this task.\
+  - ...<a name="autologin">through the **Settings app**</a>. This is probably the easiest method, but must be done as the *magic* user.\
   `Settings > Users > Authentication & Login`
+    - We need to configure several other things as this user later, so you can delay this task.
+  
   - ...if using Gnome3: from the terminal, modify `/etc/gdm3/custom.conf`. (This option can be done either as root or as a normal user having sudo(8) capabilities.)  The `AutomaticLoginEnable` and `AutomaticLogin` lines are what we need to change.  See below for the context.
 
 ```
