@@ -13,7 +13,9 @@ I have two main requirements for my MagicMirror<sup>2</sup>.
      - Automatic updates that change or add features can cause problems. My first thought is that since this really only requires vendor-supplied Node.js, additional features and bug fixes shouldn't cause problems. 
 
 ## Todo
-- I have to document the automated update configuration for Ubuntu.
+- I have to document the automated upgrade configuration for Ubuntu: package name, configuration and file, systemd service, log file, and whether e-mail notification is necessary.
+  - Ubuntu 20.04.01 installs *unattended-upgrades* by default.  I found the automatic reboot feature is not configured.  (I configured reboots for "03:30", to avoid any daylight time vs. standard time overlap.)
+  - [nixCraft, a.k.a. Cyberciti.biz](https://www.cyberciti.biz/faq/set-up-automatic-unattended-updates-for-ubuntu-20-04/), and [Linuxbabe.com](https://www.linuxbabe.com/ubuntu/automatic-security-update-unattended-upgrades-ubuntu) have good articles on unattended updates.
 - Test a build where the *magic* user was not created as a member of the *sudo* group.  Right now, the system is running well with the *magic* user removed from the *sudo* group.
   - Going through the history of the *magic* sudo commands, I don't see anything that required *root* privileges.
 - Walk through installing MMM-BackgroundSlideshow.  That can be used as a template for installing other modules.
