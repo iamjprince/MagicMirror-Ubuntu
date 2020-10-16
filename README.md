@@ -8,7 +8,7 @@ I have two main requirements for my MagicMirror<sup>2</sup>.
    - The MagicMirror<sup>2</sup> runs as a normal user, with little need for elevated privileges. 
 2. Retain the ability to run other programs, such as displaying video from security cameras.
    - My hardware is more powerful than a Raspberry Pi, so it should do more.
-   - Part of this is to retain as *plain* an operating system as possible. Use only the available repositories from the vendor. Building packages from source, for anything other than the MagicMirror<sup>2</sup> and it's modules, will require manual maintenance for bugs and security fixes.
+   - Part of this is to retain as *plain* an operating system as possible. Use only the available repositories from the vendor. Building packages from source or defining multiple sources of packages, for anything other than the MagicMirror<sup>2</sup> and it's modules, will require manual maintenance for bugs and security fixes.
    - This should make it easy to configure automatic updates targetting security bugs.
      - Automatic updates that change or add features can cause problems. My first thought is that since this really only requires vendor-supplied Node.js, additional features and bug fixes shouldn't cause problems. 
 
@@ -26,7 +26,9 @@ I have two systems, both have a Gigabyte N3060TN-EM motherboard, 32 GB SSD, and 
 
 - I chose to try the two most recent LTS (Long Term Support) Ubuntu editions, 18.04 and 20.04.
 - I avoided using Snaps to install the MagicMirror<sup>2</sup> software. I even went so far as to remove the snapd package from my 18.04 build.  In this case, Snaps is just **another** update mechanism that needs to be handled.
-- The Ubuntu 18.04.5 build frequently hangs after a few hours, even when running on the system with 4 GB RAM. I did not troubleshoot the problem. The build on Ubuntu 20.04.1 doesn't exhibit this problem.  This could be due to my hardware.  It could be due to earlier package versions.
+- The Ubuntu 18.04.5 build frequently hangs after a few hours, even when running on the system with 4 GB RAM. I did not troubleshoot the problem. The build on Ubuntu 20.04.1 also exhibits this problem.  I've notice the displayed time is also 30 seconds off.  This could be due to my hardware.  It could be due to earlier package versions.  
+  - I disabled MMM-BackgroundSideshow.  No hangs and the clock has been dead accurate for 3 days.  (The root problem may still be hardware.)  This is disappointing.  It's a big part of the reason I installed MagicMirror<sup>2</sup>.
+  - I also disabled and removed snapd from 20.04.  (It took a second boot for the MagicMirror<sup>2</sub> to display correctly.)
 - I also tried installing on Elementary OS. It's based on Ubuntu 18.04 LTS. The MagicMirror<sup>2</sup> wouldn't run, probably because this distro only comes with version 8.10 of Node.js.
 - Interesting configuration option, delay automatic login.  The ability to delay the automatic login of the user running MagicMirror<sup>2</sup> could be useful. During that delay window I could log in as another user to perform other tasks.
 - It would be nice to use some feature of the touchscreen to drop out of the MagicMirror<sup>2</sup>. Then I could drop out of the MagicMirror<sup>2</sup> to perform other tasks.  As I have things now, I need a physical keyboard to tap the ALT key.
